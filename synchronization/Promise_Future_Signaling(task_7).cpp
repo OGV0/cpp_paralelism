@@ -4,7 +4,7 @@
 #include <chrono>
 #include <cmath>
 
-// Допоміжна функція для перевірки, чи є число простим
+
 bool isPrime(int num) {
     if (num <= 1) return false;
     for (int i = 2; i * i <= num; ++i) {
@@ -13,7 +13,7 @@ bool isPrime(int num) {
     return true;
 }
 
-// Функція для пошуку k-го простого числа
+
 int findKthPrime(int k) {
     int count = 0;
     int num = 1;
@@ -26,7 +26,7 @@ int findKthPrime(int k) {
     return num;
 }
 
-// Перший потік
+
 void thread1_func(int n, 
                   std::promise<int>&& prom_n, 
                   std::promise<bool>&& prom_signal, 
@@ -48,13 +48,13 @@ void thread1_func(int n,
     prom_n10.set_value(n10th_prime);
 }
 
-// Другий потік
+
 void thread2_func(int n, std::future<bool>&& fut_signal) {
     // Очікування сигналу від першого потоку
     bool start_work = fut_signal.get(); 
     
     if (start_work) {
-        // Чекаємо 2 секунди
+        
         std::this_thread::sleep_for(std::chrono::seconds(2));
         
         // Виводимо квадратний корінь від числа n
@@ -71,7 +71,7 @@ int main() {
         return 1;
     }
 
-    // Створення об'єктів promise та відповідних їм future
+    
     std::promise<int> prom_n;
     std::future<int> fut_n = prom_n.get_future();
 
@@ -91,7 +91,7 @@ int main() {
     // Отримання та вивід (n*10)-го простого числа
     std::cout << "[Головний потік] " << (n * 10) << "-те просте число: " << fut_n10.get() << std::endl;
 
-    // Очікування завершення потоків
+    
     t1.join();
     t2.join();
 

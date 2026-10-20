@@ -4,8 +4,6 @@
 #include <chrono>
 #include <string>
 
-// Функція для знаходження n-го простого числа (не найоптимальніша, 
-// але добре підходить для створення навантаження на процесор)
 long long findNthPrime(int n) {
     if (n <= 0) return 0;
     int count = 0;
@@ -24,7 +22,7 @@ long long findNthPrime(int n) {
     return num;
 }
 
-// Функція для проведення тесту з певною політикою запуску
+
 void runTest(int n, std::launch policy, const std::string& policyName) {
     std::cout << "\n========================================\n";
     std::cout << "Запуск з політикою: " << policyName << "\n";

@@ -2,17 +2,17 @@
 #include <thread>
 #include <queue>
 #include <mutex>
-#include <condition_variable> // Додано для умовних змінних
+#include <condition_variable> 
 #include <chrono>
 #include <cmath>
 
-// Глобальні змінні для синхронізації та зберігання даних
+
 std::queue<int> data_queue;
 bool data_ready = false;
 std::mutex mtx;
-std::condition_variable cv; // Оголошення умовної змінної
+std::condition_variable cv; 
 
-// Функція для перевірки числа на простоту
+
 bool is_prime(int n) {
     if (n <= 1) return false;
     if (n <= 3) return true;
@@ -23,7 +23,7 @@ bool is_prime(int n) {
     return true;
 }
 
-// Потік підготовки даних
+
 void DataPreparation() {
     int num;
     std::cout << "Введіть цілі числа (для завершення введіть будь-яку літеру, наприклад 'q'):\n";
@@ -45,7 +45,7 @@ void DataPreparation() {
     cv.notify_one(); // Сповіщаємо про завершення вводу (на випадок, якщо черга порожня)
 }
 
-// Потік обробки даних
+
 void DataProcessing() {
     std::cout << "Прості числа з черги: ";
     bool found_prime = false;
@@ -82,14 +82,14 @@ void DataProcessing() {
 }
 
 int main() {
-    // Запуск потоку DataPreparation та його від'єднання (detach)
+ 
     std::thread prep_thread(DataPreparation);
     prep_thread.detach();
 
-    // Запуск потоку DataProcessing
+ 
     std::thread proc_thread(DataProcessing);
     
-    // Головний потік очікує на завершення потоку DataProcessing (join)
+ 
     proc_thread.join();
 
     return 0;

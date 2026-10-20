@@ -8,7 +8,7 @@
 #include <string>
 #include <stdexcept>
 
-// Функція для обчислення n-го простого числа
+
 uint64_t find_nth_prime(int n) {
     if (n <= 0) return 0;
     int count = 0;
@@ -28,7 +28,7 @@ uint64_t find_nth_prime(int n) {
 }
 
 int main() {
-    // Два деки, як вказано в завданні
+    
     std::deque<std::packaged_task<uint64_t()>> tasks_deque;
     std::deque<int> n_deque;
 
@@ -124,8 +124,7 @@ int main() {
     // Головний потік очікує коректного завершення роботи незалежного потоку
     worker_thread.join();
 
-    // Вивід результатів (примітка: у завданні вказано "стандартний пристрій вводу", 
-    // але результати логічно виводити на стандартний пристрій виводу — консоль std::cout)
+ 
     std::cout << "\n=== РЕЗУЛЬТАТИ ОБЧИСЛЕНЬ ===" << std::endl;
     for (auto& res : results) {
         // res.second.get() блокував би виконання, якби обчислення ще тривало,

@@ -5,12 +5,12 @@
 #include <chrono>
 #include <cmath>
 
-// Глобальні змінні для синхронізації та зберігання даних
+
 std::queue<int> data_queue;
 bool data_ready = false;
 std::mutex mtx;
 
-// Функція для перевірки числа на простоту
+
 bool is_prime(int n) {
     if (n <= 1) return false;
     if (n <= 3) return true;
@@ -21,7 +21,7 @@ bool is_prime(int n) {
     return true;
 }
 
-// Потік підготовки даних
+
 void DataPreparation() {
     int num;
     std::cout << "Введіть цілі числа (для завершення введіть будь-яку літеру, наприклад 'q'):\n";
@@ -37,7 +37,7 @@ void DataPreparation() {
     data_ready = true;
 }
 
-// Потік обробки даних
+
 void DataProcessing() {
     // Очікування завершення введення даних (з використанням polling)
     while (true) {
@@ -47,7 +47,7 @@ void DataProcessing() {
         }
         lock.unlock(); // Звільняємо м'ютекс перед засинанням, щоб не блокувати інший потік
         
-        // Засинаємо на 100 мілісекунд згідно з умовою
+        // Засинаємо на 100 мілісекунд
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 
@@ -73,14 +73,14 @@ void DataProcessing() {
 }
 
 int main() {
-    // Запуск потоку DataPreparation та його від'єднання (detach)
+    
     std::thread prep_thread(DataPreparation);
     prep_thread.detach();
 
-    // Запуск потоку DataProcessing
+    
     std::thread proc_thread(DataProcessing);
     
-    // Головний потік очікує на завершення потоку DataProcessing (join)
+    
     proc_thread.join();
 
     return 0;
